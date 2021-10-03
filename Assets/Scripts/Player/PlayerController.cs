@@ -63,13 +63,13 @@ public class PlayerController : MonoBehaviour
         //Horizontal Input
         switch (Input.GetAxisRaw("Horizontal"))
         {
-            case 1:
+            case 1: //Right
                 if (currentPlayerPosition == 2) { break; }; //Breaks out if the player is at Position 2 (Up)
                 transform.position = transformPositionArray[1].position;
                 this.currentPlayerPosition = 1;
                 break;
 
-            case -1:
+            case -1: //Left
                 if (currentPlayerPosition == 2) { break; }; //Breaks out if the player is at Position 2 (Up)
                 transform.position = transformPositionArray[3].position;
                 this.currentPlayerPosition = 3;
