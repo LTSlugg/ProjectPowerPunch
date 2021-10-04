@@ -121,33 +121,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &91000717 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9191575188195407637, guid: 37ab454c7377e074e966f5bc37f6061b,
-    type: 3}
-  m_PrefabInstance: {fileID: 9191575188104365500}
-  m_PrefabAsset: {fileID: 0}
---- !u!50 &91000718
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 91000717}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &397966329
 GameObject:
   m_ObjectHideFlags: 0
@@ -788,11 +761,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 9191575188195407632, guid: 37ab454c7377e074e966f5bc37f6061b,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 92963fe82e67e384ebe179581e823b57, type: 2}
     - target: {fileID: 9191575188195407637, guid: 37ab454c7377e074e966f5bc37f6061b,
         type: 3}
       propertyPath: m_Name
@@ -855,19 +823,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9191575188195407639, guid: 37ab454c7377e074e966f5bc37f6061b,
         type: 3}
-      propertyPath: currentState
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9191575188195407639, guid: 37ab454c7377e074e966f5bc37f6061b,
-        type: 3}
-      propertyPath: attackSpeedRate
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9191575188195407639, guid: 37ab454c7377e074e966f5bc37f6061b,
-        type: 3}
-      propertyPath: currentPlayerPosition
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: _playerStateMachine
+      value: 
+      objectReference: {fileID: 9191575188104365501}
     - target: {fileID: 9191575188195407639, guid: 37ab454c7377e074e966f5bc37f6061b,
         type: 3}
       propertyPath: transformPositionArray.Array.data[0]
@@ -890,3 +848,15 @@ PrefabInstance:
       objectReference: {fileID: 752465223}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37ab454c7377e074e966f5bc37f6061b, type: 3}
+--- !u!114 &9191575188104365501 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2289801943602244448, guid: 37ab454c7377e074e966f5bc37f6061b,
+    type: 3}
+  m_PrefabInstance: {fileID: 9191575188104365500}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca98d78d3765af8419de5474087a9abe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
