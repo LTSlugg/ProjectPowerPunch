@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
- * TODO: A FEW ITEMS ON LIST NEED TO BE COMPLETED, MISSING FEATURES SUCH AS ATTACKING ANIMATIONS, RESETS, DASHING ANIMATION, ETC
  * TODO: ADD FULL FUNCTIONALITY FOR ATTACKING, ADD HEALTH BAR, DAZE METER, BLOCK METER
  * Handles User Input 
  * Communicates with Animator
@@ -15,25 +14,42 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     //Player Data
+    [Header("Player Data")]
     [SerializeField] private Transform[] transformPositionArray;
     [SerializeField] private int currentPlayerPosition;
     [SerializeField] public float attackSpeedRate { get; private set; }
 
 
+
     //Game Object Components / Scripts
     Animator _animator;
     Rigidbody2D _rgbd2;
+    HealthSystem _healthSys; //The Players Health System
+    
+    [Header("Player State Machine Script Reference")]
     [SerializeField]PlayerStateMachine _playerStateMachine;
 
+
+    private void OnEnable()
+    {
+        _healthSys =  GetComponentInChildren<HealthSystem>();
+        _healthSys.GotDazed += PlayerGotDazed;
+        _healthSys.GotKilled += PlayerGotKilled;
+    }
+
+    private void OnDisable()
+    {
+        _healthSys.GotDazed -= PlayerGotDazed;
+        _healthSys.GotKilled -= PlayerGotKilled;
+    }
 
     //*******************************************************************************************************************
     #region Unity Monobehavior Functions
     //Start is called before the first frame update
     void Start()
     {
-        _animator = GetComponent<Animator>();
-        _rgbd2 = GetComponent<Rigidbody2D>();
-
+        _animator = GetComponentInChildren<Animator>();
+        _rgbd2 = GetComponentInChildren<Rigidbody2D>();
 
         attackSpeedRate = .15f;
         currentAttackCoolDown = attackSpeedRate; //Sets the current cooldown to the attackspeed rate
@@ -135,8 +151,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-
     //Tracks the players ability to Attack using Logic to determine is he is able too or not
     private void TrackPlayerAttackLogicFunction()
     {
@@ -147,15 +161,28 @@ public class PlayerController : MonoBehaviour
         else  
         {
             currentAttackCoolDown += .005f; 
-            canAttack = false; 
+            canAttack = false;
         }
     }
     #endregion
 
+    #region Player Logic and Reasoning Section
+    //Listeners: Change the current state and run algorithms when called
+    private void PlayerGotDazed() 
+    {
+        _playerStateMachine.currentState = PlayerStateMachine.ActionStates.Dazed;
+    }
+  
+
+    private void PlayerGotKilled()
+    {
+        _playerStateMachine.currentState = PlayerStateMachine.ActionStates.KnockedOut;
+    }
+    #endregion
+
+
 
     //**************************************************************************************************************************
-
-
 }
 
 

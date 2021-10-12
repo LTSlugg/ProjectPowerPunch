@@ -10,6 +10,8 @@ public class MusicManager : MonoBehaviour
     #region Singleton Code & Awake Function
     private static MusicManager _instance;
 
+
+
     void Awake()
     {
         #region Singleton Code
