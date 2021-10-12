@@ -17,7 +17,6 @@ public class PlayerStateMachine : MonoBehaviour
         Blocking,
         AttackJab,
         AttackCross,
-        GotHit,
         Moving,
         Hurt,
         Dazed,
@@ -63,19 +62,20 @@ public class PlayerStateMachine : MonoBehaviour
                 CallResetToIdleRoutine();
                 break;
 
-            case ActionStates.GotHit:
-                break;
-
             case ActionStates.Moving:
                 break;
 
             case ActionStates.Hurt:
+                _animator.SetTrigger("Hurt");
+                CallResetToIdleRoutine();
                 break;
 
             case ActionStates.Dazed:
+                _animator.SetTrigger("Dazed");
                 break;
 
             case ActionStates.KnockedOut:
+                _animator.SetTrigger("KnockedOut");
                 break;
         }
     }
@@ -142,20 +142,17 @@ public class PlayerStateMachine : MonoBehaviour
             case ActionStates.AttackCross:
                 return "Cross";
 
-            case ActionStates.GotHit:
-                break;
-
             case ActionStates.Moving:
                 break;
 
             case ActionStates.Hurt:
-                break;
+                return "Hurt";
 
             case ActionStates.Dazed:
-                break;
+                return "Dazed";
 
             case ActionStates.KnockedOut:
-                break;
+                return "KnockedOut";
         }
 
         Debug.LogError("Returning the current State is Broken");
