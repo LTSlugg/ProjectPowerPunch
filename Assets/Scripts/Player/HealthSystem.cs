@@ -36,26 +36,39 @@ public class HealthSystem : MonoBehaviour
     //Logic Update Function
     private void Update()
     {
-        IsEntityDazed();
-        HealUpOverTime();       
+        EntityStatus();       
     }
+
+    //Checks every frame to see the status of the Entity
+    private void EntityStatus()
+    {
+        if (IsEntityDead()) { return; } //Breaks out the code if condition is met AKA this entity is Dead
+        
+        HealUpOverTime();
+        isDazed = IsEntityDazed(); //Sets the Dazed boolean to the IsEntityDazed Function
+
+        if (IsEntityDazed()) { return; } //Breaks out the code if condition is met
+
+        DecreaseDazeOverTime(); //Calls on the Decrease Daze Function since player is at MAX HP his daze meter decreases
+    }
+
 
 
     //Heals the Entity over Time;
     //TODO: Add timer to allow a pause on the healing when the entity is hit
     private void HealUpOverTime()
     {
-        if(currentHealthPoints >= healthPointsMax && isDazed == false)
+        if(currentHealthPoints >= healthPointsMax && isDazed == false) 
         {
             currentHealthPoints = healthPointsMax; //Resets the Current Health Points to default incase overshot occured
-            DecreaseDazeOverTime(); //Calls on the Decrease Daze Function since player is at MAX HP his daze meter decreases
-
         }
-        else
+        else //Heal up Functionality
         {
             currentHealthPoints += .25f;
         }
     }
+
+
 
     //Decreases the Daze Meter over Time, only called when the player is at Full HP
     private void DecreaseDazeOverTime()
@@ -67,21 +80,27 @@ public class HealthSystem : MonoBehaviour
     }
 
 
-    //Checks every frame to see if the Entity is Dazed and should enter Dazed State
-    private void IsEntityDazed()
+
+    //Checks to see if the Entity is Dazed and returns true or false and calls on UnityAction Events
+    private bool IsEntityDazed()
     {
         if (currentDazePoints >= dazePointsMax && isDazed == false)
         {
-            GotDazed();
-            isDazed = true;
+            GotDazed(); //Calls out to the Listeners
+            return true;
         }
+
+        return false;
     }
 
-    //Checks to see if the Entity has Died
+
+
+    //Checks to see if the Entity has Died and returns a true or false value UnityAction Events
     private bool IsEntityDead()
     {
         if(currentHealthPoints <= 0)
-        { 
+        {
+            GotKilled(); //Calls out to the Listeners
             return true; 
         }
         else
