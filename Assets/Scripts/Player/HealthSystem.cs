@@ -48,8 +48,6 @@ public class HealthSystem : MonoBehaviour
         isDazed = IsEntityDazed(); //Sets the Dazed boolean to the IsEntityDazed Function
 
         if (IsEntityDazed()) { return; } //Breaks out the code if condition is met
-
-        DecreaseDazeOverTime(); //Calls on the Decrease Daze Function since player is at MAX HP his daze meter decreases
     }
 
 
@@ -61,6 +59,7 @@ public class HealthSystem : MonoBehaviour
         if(currentHealthPoints >= healthPointsMax && isDazed == false) 
         {
             currentHealthPoints = healthPointsMax; //Resets the Current Health Points to default incase overshot occured
+            DecreaseDazeOverTime(); //Calls on the Decrease Daze Function since player is at MAX HP his daze meter decreases
         }
         else //Heal up Functionality
         {
