@@ -11,6 +11,10 @@ public class CombatSystem : MonoBehaviour
      * Will Communicate with Local Health System and send signals to the other Entity.CombatSystem to help that Entity determine its local states
      */
 
+    public int playerPos { get; private set; }
+    public int enemyPos { get; private set; }
+
+
     // Start is called before the first frame update
     void Start()
     {

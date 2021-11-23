@@ -50,7 +50,7 @@ public class IdleState : States
     //TODO: Add more Logic to this Function and allow transitions into other states
     private void Move()
     {
-        bossEntity.transform.position = bossEntity.arrayPositions[Random.Range(1,4)].position;
+        bossEntity.transform.position = bossEntity.arrayPositions[Random.Range(0,4)].position;
         this.randomWaitTime = Random.Range(stateData.MinWaitTime, stateData.MaxWaitTime);
     }
 

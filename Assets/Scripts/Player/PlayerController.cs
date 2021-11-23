@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
                 _playerStateMachine.currentState = PlayerStateMachine.ActionStates.Blocking;
                 break;
 
-                //TODO: ADD and NOW FIXXXXXX POWERPUNCH LOGIC
+                //TODO: ADD and NOW FIXXXXXX POWERPUNCH LOGIC - NEED TO ADD RESET TO THE BLOCK METER AND FUNCTIONALITY
             case -1:
                 transform.position = transformPositionArray[0].position;
                 this.currentPlayerPosition = 0;
