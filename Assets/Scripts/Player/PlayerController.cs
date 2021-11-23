@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     [Header("Player Data")]
     [SerializeField] private Transform[] transformPositionArray;
     [SerializeField] private int currentPlayerPosition;
-    [SerializeField] public float attackSpeedRate { get; private set; }
+    [SerializeField] public float attackSpeedRate = .15f;
 
 
 
@@ -88,7 +88,6 @@ public class PlayerController : MonoBehaviour
                 if(_playerStateMachine.currentState == PlayerStateMachine.ActionStates.Blocking) { _playerStateMachine.ResetStateToIdle(); } //Will reset to Idle if no input is in and the current State is Blocking to leave block state
             }
 
-        //TODO: ADD DASH ANIMATION EFFECT
         //Horizontal Input
         switch (Input.GetAxisRaw("Horizontal"))
         {
@@ -115,10 +114,15 @@ public class PlayerController : MonoBehaviour
                 _playerStateMachine.currentState = PlayerStateMachine.ActionStates.Blocking;
                 break;
 
-                //TODO: ADD POWERPUNCH LOGIC
+                //TODO: ADD and NOW FIXXXXXX POWERPUNCH LOGIC
             case -1:
                 transform.position = transformPositionArray[0].position;
                 this.currentPlayerPosition = 0;
+                
+                if (_healthSys.currentBlockMeter >= _healthSys.blockMeterMax && _playerStateMachine.currentState != PlayerStateMachine.ActionStates.PowerPunch) //Checks to see if the current Meter is at the maximum capacity before entering power punch statew
+                {
+                    _playerStateMachine.currentState = PlayerStateMachine.ActionStates.PowerPunch;
+                }
                 break;
         }
     }
@@ -168,16 +172,9 @@ public class PlayerController : MonoBehaviour
 
     #region Player Logic and Reasoning Section
     //Listeners: Change the current state and run algorithms when called
-    private void PlayerGotDazed() 
-    {
-        _playerStateMachine.currentState = PlayerStateMachine.ActionStates.Dazed;
-    }
+    private void PlayerGotDazed() => _playerStateMachine.currentState = PlayerStateMachine.ActionStates.Dazed;
   
-
-    private void PlayerGotKilled()
-    {
-        _playerStateMachine.currentState = PlayerStateMachine.ActionStates.KnockedOut;
-    }
+    private void PlayerGotKilled() => _playerStateMachine.currentState = PlayerStateMachine.ActionStates.KnockedOut;
     #endregion
 
 

@@ -9,7 +9,7 @@ public class HealthSystem : MonoBehaviour
     [Header("Default Stats")]
     [SerializeField] private int healthPointsMax = 100; //Increases OverTime Determines KO State
     [SerializeField] private int dazePointsMax = 12; //Decreases OverTime Determines Dazed State
-    [SerializeField] private int blockMeterMax = 3; //Increases when Blocking Successfully, Decreases when Hit, Determines PowerPunch Capability
+    [SerializeField] public int blockMeterMax { get; private set; } //Increases when Blocking Successfully, Decreases when Hit, Determines PowerPunch Capability
 
     private int jabDamage = 20;
     private int crossDamage = 40;
@@ -19,9 +19,9 @@ public class HealthSystem : MonoBehaviour
 
     //Current Stats
     [Header("Current Stats")]
-    [SerializeField]private float currentHealthPoints = 0;
+    [SerializeField] private float currentHealthPoints = 0;
     [SerializeField] private float currentDazePoints = 0;
-    [SerializeField] private float currentBlockMeter = 0;
+    [SerializeField] public float currentBlockMeter{ get; private set; }
 
     public UnityAction GotDazed;
     public UnityAction GotKilled;
@@ -30,6 +30,8 @@ public class HealthSystem : MonoBehaviour
     private void Start()
     {
         currentHealthPoints = healthPointsMax; //Sets current HP to the Max HP
+        blockMeterMax = 3;
+        currentBlockMeter = 3;
     }
 
 

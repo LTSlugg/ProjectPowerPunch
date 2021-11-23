@@ -7,7 +7,7 @@ public class SingletonPattern : MonoBehaviour
     //A standard Singleton pattern script
 
     #region Singleton Code & Awake Function
-    private static SingletonPattern _instance; //TODO: Change this to your current Class Name
+    private static SingletonPattern _instance; //Change this to your current Class Name
 
     void Awake()
     {

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerStateMachine : MonoBehaviour
 {
     #region The Players State Machine
-    //Communicates with the ANimator and allows the proper Animation and Logic to run corresponding with the current Players State
+    //Communicates with the Animator and allows the proper Animation and Logic to run corresponding with the current Players State
     //This depends entirely upon the Input from the Player Controller
 
 
@@ -17,10 +17,10 @@ public class PlayerStateMachine : MonoBehaviour
         Blocking,
         AttackJab,
         AttackCross,
-        Moving,
         Hurt,
         Dazed,
         KnockedOut,
+        PowerPunch,
     }
     public ActionStates currentState;
     public ActionStates previousState;
@@ -62,9 +62,6 @@ public class PlayerStateMachine : MonoBehaviour
                 CallResetToIdleRoutine();
                 break;
 
-            case ActionStates.Moving:
-                break;
-
             case ActionStates.Hurt:
                 _animator.SetTrigger("Hurt");
                 CallResetToIdleRoutine();
@@ -77,11 +74,16 @@ public class PlayerStateMachine : MonoBehaviour
             case ActionStates.KnockedOut:
                 _animator.SetTrigger("KnockedOut");
                 break;
+
+            case ActionStates.PowerPunch:
+                _animator.SetTrigger("PowerPunch");
+                CallResetToIdleRoutine();
+                break;
         }
     }
 
 
-    //Resets the current State
+    //Resets the current State to the Idle State when Called
     public void ResetStateToIdle()
     {
         _animator.ResetTrigger(FindStateTriggerName(currentState));
@@ -142,9 +144,6 @@ public class PlayerStateMachine : MonoBehaviour
             case ActionStates.AttackCross:
                 return "Cross";
 
-            case ActionStates.Moving:
-                break;
-
             case ActionStates.Hurt:
                 return "Hurt";
 
@@ -153,6 +152,10 @@ public class PlayerStateMachine : MonoBehaviour
 
             case ActionStates.KnockedOut:
                 return "KnockedOut";
+
+            case ActionStates.PowerPunch:
+                Debug.Log("Returning PP Trigger Name for Reset");
+                return "PowerPunch";
         }
 
         Debug.LogError("Returning the current State is Broken");
